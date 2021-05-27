@@ -12,7 +12,7 @@ import com.coffeecorner.service.impl.FileResourcesServiceImpl;
 import com.coffeecorner.service.impl.OrderServiceImpl;
 import com.coffeecorner.service.impl.ProductServiceImpl;
 import com.coffeecorner.service.impl.SelectionServiceImpl;
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
