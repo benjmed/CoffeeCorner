@@ -10,8 +10,8 @@ import com.coffeecorner.domain.Product;
 public interface ProductService {
 
     /**
-     *
-     * @param jsonFile the name of the json file wich contains the products
+     * Method that return a map of products grouped by id
+     * @param jsonFile the name of the json file containing the products
      * @return map with products organized by id
      */
     Map<Integer, Product> getProducts(String jsonFile);

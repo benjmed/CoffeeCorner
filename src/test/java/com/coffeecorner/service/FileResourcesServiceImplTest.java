@@ -1,6 +1,8 @@
 package com.coffeecorner.service;
 
 import com.coffeecorner.common.Constants;
+import com.coffeecorner.service.impl.FileResourcesServiceImpl;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,5 +24,11 @@ public class FileResourcesServiceImplTest {
     {
         String content = fileResourcesService.readFile(Constants.PRODUCTS_FILE);
         assertNotNull(content);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldFailFileNotFound()
+    {
+        fileResourcesService.readFile("types");
     }
 }

@@ -1,9 +1,11 @@
-package com.coffeecorner.service;
+package com.coffeecorner.service.impl;
 
 import com.coffeecorner.common.Constants;
+import com.coffeecorner.common.Loggers;
 import com.coffeecorner.domain.Order;
 import com.coffeecorner.domain.Product;
 import com.coffeecorner.domain.ProductType;
+import com.coffeecorner.service.OrderService;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
                 // Retrieves the product mapped to the selection
                 Product product = menu.get(selection);
 
-                // Selected product is in the menu?
+                // Selected product is in the menu
                 if (product != null) {
                     // Yes; add selected product
                     selectedProducts.add(product);
@@ -54,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
             // Total bill
             totalAmount += product.getPrice();
 
-            // Beverage?
+            // Beverage
             if (product.getType().equals(ProductType.BEVERAGE)) {
                 // Yes; count it
                 totalBeverages++;
@@ -62,19 +64,16 @@ public class OrderServiceImpl implements OrderService {
                 // Per each 5 beverages, the 5th is free
                 if (totalBeverages % Constants.STAMP_CARD_LIMIT == 0) {
                     freeBeverages.add(product);
-                    System.out.println("discount before:" + discounts);
                     discounts += product.getPrice();
-                    System.out.println("discount after:" + discounts);
                 }
             }
-            // Snack?
+            // Snack
             if (product.getType().equals(ProductType.SNACK)) {
                 // Yes; count it
                 totalSnacks++;
             }
         }
         // Count free extras
-        //nFreeExtras = ((totalBeverages + totalSnacks - Math.abs(totalBeverages - totalSnacks)) / 2);
         if (totalBeverages > 0 && totalSnacks > 0)
         {
             if(totalBeverages >= totalSnacks) {
@@ -84,11 +83,8 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        System.out.println("nFreeExtras:" + nFreeExtras);
-
         // Add first <nFreeExtras> for free
         for (int i = 0; i < order.getProducts().size() && nFreeExtras > 0; i++) {
-            System.out.println("product type:" + order.getProducts().get(i).getType());
             if (order.getProducts().get(i).getType().equals(ProductType.EXTRA)) {
                 nFreeExtras--;
                 freeExtras.add(order.getProducts().get(i));
@@ -107,41 +103,37 @@ public class OrderServiceImpl implements OrderService {
     public void printInvoice(Order order) {
 
         DecimalFormat format = new DecimalFormat(Constants.DECIMAL_FORMAT_2_DIGITS);
+        String currency;
+        Loggers.log("============================================");
+        Loggers.log("Thanks for visiting Charlene's Coffee Corner");
+        Loggers.log("============================================");
+        Loggers.log("-----------");
+        Loggers.log("| Invoice |");
+        Loggers.log("-----------");
+        Loggers.log("Ordered products:");
 
-        System.out.println("============================================");
-        System.out.println("Thanks for visiting Charlene's Coffee Corner");
-        System.out.println("============================================");
-        System.out.println("-----------");
-        System.out.println("| Invoice |");
-        System.out.println("-----------");
-        System.out.println("Ordered products:");
-        for (Product product : order.getProducts()) {
-            System.out.println("- " + product.toString());
-        }
-        System.out.println("----------------------------------");
-        System.out.println("Free beverages:");
+        order.getProducts().forEach((final Product product)-> Loggers.log("- " + product.toString()));
+        currency = order.getProducts().get(0).getCurrency();
+        Loggers.log("----------------------------------");
+        Loggers.log("Free beverages:");
+
         if (order.getFreeBeverages().size() > 0) {
-            for (Product product : order.getFreeBeverages()) {
-                System.out.println("- " + product.toString());
-            }
+            order.getFreeBeverages().forEach((final Product product)-> Loggers.log("- " + product.toString()));
         } else {
-            System.out.println("<NA>");
+            Loggers.log("<NA>");
         }
 
-        System.out.println("----------------------------------");
-        System.out.println("Free freeExtras:");
+        Loggers.log("----------------------------------");
+        Loggers.log("Free freeExtras:");
 
         if (order.getFreeExtras().size() > 0) {
-            for (Product product : order.getFreeExtras()) {
-                System.out.println("- " + product.toString());
-            }
+            order.getFreeExtras().forEach((final Product product)-> Loggers.log("- " + product.toString()));
         } else {
-            System.out.println("<NA>");
+            Loggers.log("<NA>");
         }
-        System.out.println("----------------------------------");
-        System.out.println("Resume:");
-        System.out.println("Gross Amount:  " + format.format(order.getTotalAmount()));
-        System.out.println("Discounts:   - " + format.format(order.getDiscounts()));
-        System.out.println("Total to pay:  " + format.format(order.getAmountToPay()));
+        Loggers.log("----------------------------------");
+        Loggers.log("Gross Amount:  " + format.format(order.getTotalAmount()) + " " + currency);
+        Loggers.log("Discounts:   - " + format.format(order.getDiscounts())  + " " + currency);
+        Loggers.log("Total to pay:  " + format.format(order.getAmountToPay())  + " " + currency);
     }
 }

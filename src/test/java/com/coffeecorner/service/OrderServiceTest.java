@@ -3,6 +3,9 @@ package com.coffeecorner.service;
 import com.coffeecorner.common.Constants;
 import com.coffeecorner.domain.Order;
 import com.coffeecorner.domain.Product;
+import com.coffeecorner.service.impl.FileResourcesServiceImpl;
+import com.coffeecorner.service.impl.OrderServiceImpl;
+import com.coffeecorner.service.impl.ProductServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,9 +18,9 @@ import static org.junit.Assert.assertNotNull;
 
 public class OrderServiceTest {
 
-    private FileResourcesService fileResourcesService;
+    FileResourcesService fileResourcesService;
 
-    private ProductService productService;
+    ProductService productService;
 
     private OrderService orderService;
 

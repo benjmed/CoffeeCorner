@@ -1,4 +1,4 @@
-package com.coffeecorner.service;
+package com.coffeecorner.service.impl;
 
 
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.coffeecorner.domain.Product;
 import com.coffeecorner.domain.ProductType;
 import com.coffeecorner.common.Constants;
+import com.coffeecorner.service.FileResourcesService;
+import com.coffeecorner.service.ProductService;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

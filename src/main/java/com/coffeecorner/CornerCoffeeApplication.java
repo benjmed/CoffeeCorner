@@ -1,9 +1,14 @@
 package com.coffeecorner;
 
 import com.coffeecorner.common.Constants;
+import com.coffeecorner.common.Loggers;
 import com.coffeecorner.domain.Order;
 import com.coffeecorner.domain.Product;
 import com.coffeecorner.service.*;
+import com.coffeecorner.service.impl.FileResourcesServiceImpl;
+import com.coffeecorner.service.impl.OrderServiceImpl;
+import com.coffeecorner.service.impl.ProductServiceImpl;
+import com.coffeecorner.service.impl.SelectionServiceImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +19,6 @@ import java.util.Map;
  */
 public class CornerCoffeeApplication
 {
-
     /**
      * productService:the product service.
      */
@@ -73,7 +77,7 @@ public class CornerCoffeeApplication
             // Print invoice
             cornerCoffeeApplication.getOrderService().printInvoice(order);
         } else {
-            System.out.println("\nNo order han been attended for your selections");
+            Loggers.log("\nNo order han been attended for your selections");
         }
 
     }

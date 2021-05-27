@@ -2,6 +2,9 @@ package com.coffeecorner.service;
 
 import com.coffeecorner.common.Constants;
 import com.coffeecorner.domain.Product;
+import com.coffeecorner.service.impl.FileResourcesServiceImpl;
+import com.coffeecorner.service.impl.ProductServiceImpl;
+import com.coffeecorner.service.impl.SelectionServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
