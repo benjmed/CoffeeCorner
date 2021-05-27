@@ -1,5 +1,4 @@
 # Coffee Corner Application
-Coffee Corner Application
 
 ## Overview
 The following repo contains java application for Charlene's Coffee Corner, implemented as a POC for a technical interview.
